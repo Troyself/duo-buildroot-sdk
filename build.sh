@@ -123,10 +123,8 @@ function prepare_env()
 
   source build/${MV_BUILD_ENV} > /dev/null 2>&1
 
-  if [ ${MILKV_BOARD} == "milkv-duos-sd" ]; then
-    print_info "choose kernel version here"
-    choose_kernel
-  fi
+	print_info "Select a kernel version to build:"
+	choose_kernel
 
   defconfig ${MV_BOARD_LINK} > /dev/null 2>&1
 
