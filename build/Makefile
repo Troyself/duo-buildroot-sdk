@@ -337,18 +337,6 @@ kernel-dts: ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}
 endif
 
 kernel: $(OUTPUT_DIR)/rootfs
-ifeq ($(strip $(MILKV_KERNEL_VERSION)), 6.12)
-kernel: kernel-build
-	$(call print_target)
-	${Q}echo LOCALVERSION=${LOCALVERSION}
-	$(call copy_Image_action)
-	$(call copy_ko_action, ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}/modules)
-ifeq ($(patsubst "%",%,$(CONFIG_ARCH)),arm64)
-	# Since we will support aarch32 user space even if the kernel is aarch64, install aarch32 headers also
-	$(call copy_header_action, ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}/arm/usr/include)
-endif
-	${Q}ln -sf ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}  ${KERNEL_PATH}/build/kernel_output
-else
 kernel: kernel-build
 	$(call print_target)
 	${Q}echo LOCALVERSION=${LOCALVERSION}
@@ -360,7 +348,6 @@ ifeq ($(patsubst "%",%,$(CONFIG_ARCH)),arm64)
 	$(call copy_header_action, ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}/arm/usr/include)
 endif
 	${Q}ln -sf ${KERNEL_PATH}/${KERNEL_OUTPUT_FOLDER}  ${KERNEL_PATH}/build/kernel_output
-endif
 
 ifeq ($(CONFIG_TOOLCHAIN_GLIBC_ARM64),y)
 INITRAMFS_BASE := glibc_arm64
