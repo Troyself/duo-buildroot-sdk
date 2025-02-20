@@ -123,9 +123,6 @@ function prepare_env()
 
   source build/${MV_BUILD_ENV} > /dev/null 2>&1
 
-	print_info "Select a kernel version to build:"
-	choose_kernel
-
   defconfig ${MV_BOARD_LINK} > /dev/null 2>&1
 
   echo "OUTPUT_DIR: ${OUTPUT_DIR}"  # @build/milkvsetup.sh
@@ -279,6 +276,9 @@ if [ -z "${MILKV_BOARD// }" ]; then
   print_err "No board specified!"
   exit 1
 fi
+
+print_info "Select a kernel version to build:"
+choose_kernel
 
 MILKV_BOARD_CONFIG=device/${MILKV_BOARD}/boardconfig.sh
 
