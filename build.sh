@@ -98,12 +98,12 @@ function choose_kernel()
   local FITED_BOARD_ARRAY=("milkv-duos-emmc" "milkv-duos-sd")
 
   if [[ ! " ${FITED_BOARD_ARRAY[@]} " =~ " ${MILKV_BOARD} " ]]; then
-		print_info "Current target only supports kernel 5.10"
+    print_info "Current target only supports kernel 5.10"
     MILKV_KERNEL_VERSION="5.10"
     return  # 直接退出当前函数或脚本
   fi
 
-	print_info "Select a kernel version to build:"
+  print_info "Select a kernel version to build:"
 
   echo "1. linux 5.10"
   echo "2. linux 6.12"
@@ -130,7 +130,6 @@ function prepare_env()
   source ${MILKV_BOARD_CONFIG}
 
   source build/${MV_BUILD_ENV} > /dev/null 2>&1
-
   defconfig ${MV_BOARD_LINK} > /dev/null 2>&1
 
   echo "OUTPUT_DIR: ${OUTPUT_DIR}"  # @build/milkvsetup.sh
