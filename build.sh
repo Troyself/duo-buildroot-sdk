@@ -95,7 +95,15 @@ function choose_board()
 
 function choose_kernel()
 {
-  echo "Select kernel version:"
+  local FITED_BOARD_ARRAY=("milkv-duos-emmc" "milkv-duos-sd")
+
+  if [[ ! " ${FITED_BOARD_ARRAY[@]} " =~ " ${MILKV_BOARD} " ]]; then
+		print_info "Current target only supports kernel 5.10"
+    MILKV_KERNEL_VERSION="5.10"
+    return  # 直接退出当前函数或脚本
+  fi
+
+	print_info "Select a kernel version to build:"
 
   echo "1. linux 5.10"
   echo "2. linux 6.12"
@@ -277,7 +285,6 @@ if [ -z "${MILKV_BOARD// }" ]; then
   exit 1
 fi
 
-print_info "Select a kernel version to build:"
 choose_kernel
 
 MILKV_BOARD_CONFIG=device/${MILKV_BOARD}/boardconfig.sh
